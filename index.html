@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>生日快乐 - 璀璨星轨版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: 'Comic Sans MS', '楷体', cursive;
+            background: #000509; /* 极暗夜空 */
+            color: #fff;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            width: 100%;
+        }
+
+        /* 顶部标题 */
+        .fixed-birthday-title {
+            position: fixed;
+            top: 8vh;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3.2rem;
+            color: #fff200;
+            text-shadow: 0 0 20px rgba(255, 242, 0, 1), 0 0 40px rgba(255, 200, 0, 0.5);
+            font-weight: bold;
+            z-index: 10;
+            white-space: nowrap;
+            animation: titlePulse 2.5s ease-in-out infinite;
+        }
+
+        @keyframes titlePulse {
+            0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.9; }
+            50% { transform: translateX(-50%) scale(1.08); opacity: 1; }
+        }
+
+        /* --- 极度繁茂的星轨系统 --- */
+        .star-tracks-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            width: 180vmax;
+            height: 180vmax;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        .stars-layer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            /* 基础星星层：高密度 */
+            background-image: 
+                radial-gradient(1.5px 1.5px at 10% 10%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 20% 35%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 30% 60%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.2px 1.2px at 40% 85%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 50% 20%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 60% 45%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 70% 70%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.2px 1.2px at 85% 15%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.8px 1.8px at 95% 50%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 5% 75%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2.2px 2.2px at 15% 95%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 80% 90%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.5px 1.5px at 35% 5%, #fff, rgba(0,0,0,0)),
+                radial-gradient(1.2px 1.2px at 65% 35%, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90% 80%, #fff, rgba(0,0,0,0));
+            background-size: 350px 350px;
+        }
+
+        /* 第一层：快速旋转 */
+        .l1 { animation: rotateTracks 120s linear infinite; opacity: 0.8; }
+        /* 第二层：慢速旋转 + 偏移 */
+        .l2 { 
+            animation: rotateTracks 180s linear infinite reverse; 
+            opacity: 0.5; 
+            transform: scale(1.1) rotate(45deg); 
+            background-size: 280px 280px;
+        }
+        /* 第三层：中速旋转 + 缩放 */
+        .l3 { 
+            animation: rotateTracks 240s linear infinite; 
+            opacity: 0.4; 
+            transform: scale(0.9) rotate(-30deg); 
+            background-size: 450px 450px;
+        }
+
+        @keyframes rotateTracks {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 祝福容器 */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 25px;
+            width: 85%;
+            max-width: 450px;
+            min-height: 460px;
+            background: rgba(255, 255, 255, 0.12); 
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15vh;
+        }
+        
+        .container h1 { display: none; }
+        
+        .message {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 15px;
+            width: 100%;
+            min-height: 110px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: opacity 0.4s ease;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .cake-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 15px 0;
+        }
+        .cake { position: relative; width: 100%; height: 100%; animation: float 3s ease-in-out infinite; }
+        .layer { position: absolute; border-radius: 50%; background: linear-gradient(to bottom, #ff9a9e, #fad0c4); left: 50%; transform: translateX(-50%); }
+        .layer-1 { width: 130px; height: 40px; bottom: 0; z-index: 3; }
+        .layer-2 { width: 90px; height: 32px; bottom: 32px; z-index: 2; }
+        .layer-3 { width: 60px; height: 28px; bottom: 60px; z-index: 1; }
+        .candle { position: absolute; width: 8px; height: 28px; background: #fff; bottom: 82px; left: 50%; transform: translateX(-50%); z-index: 4; border-radius: 4px; }
+        .flame {
+            position: absolute; width: 12px; height: 20px;
+            background: linear-gradient(to top, #ff9500, #ffce00);
+            border-radius: 50% 50% 20% 20%;
+            bottom: 105px; left: 50%; transform: translateX(-50%); z-index: 5;
+            animation: flicker 1.5s infinite alternate;
+            box-shadow: 0 0 15px #ff9500;
+        }
+        
+        .btn-blow {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            border: none;
+            border-radius: 50px;
+            color: white;
+            padding: 12px 0;
+            width: 180px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            margin-top: 5px;
+        }
+
+        .blessings {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff200;
+            text-shadow: 1px 1px 3px #000;
+            z-index: 10;
+            white-space: nowrap;
+        }
+        
+        @keyframes flicker { 0%, 100% { transform: scale(1) rotate(-2deg); opacity: 0.9; } 50% { transform: scale(1.1) rotate(2deg); opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes floatUp { 
+            0% { opacity: 0; transform: translateY(0); } 
+            20% { opacity: 1; } 
+            100% { opacity: 0; transform: translateY(-280px); } 
+        }
+
+        @media (max-width: 480px) {
+            .fixed-birthday-title { font-size: 2.4rem; top: 6vh; }
+            .container { min-height: 440px; margin-top: 10vh; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="fixed-birthday-title">生日快乐</div>
+    
+    <div class="star-tracks-container">
+        <div class="stars-layer l1"></div>
+        <div class="stars-layer l2"></div>
+        <div class="stars-layer l3"></div>
+    </div>
+
+    <audio id="music1" loop preload="auto">
+        <source src="http://music.163.com/song/media/outer/url?id=2076615067.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="container">
+        <div class="message" id="msgText">
+            Dear 曹潇艺，<br>
+            愿你的每一天都充满阳光，<br>
+            愿你的愿望都能实现！
+        </div>
+        
+        <div class="cake-container">
+            <div class="cake">
+                <div class="layer layer-1"></div>
+                <div class="layer layer-2"></div>
+                <div class="layer layer-3"></div>
+                <div class="candle"></div>
+                <div class="flame" id="flameElement"></div>
+            </div>
+        </div>
+        
+        <button class="btn-blow" id="blowBtn">许愿吹蜡烛</button>
+    </div>
+
+    <script>
+        const blowBtn = document.getElementById('blowBtn');
+        const flame = document.getElementById('flameElement');
+        const message = document.getElementById('msgText');
+        const myAudio = document.getElementById('music1');
+
+        const blessings = [ 
+            "万事顺遂！", "烦恼清零，快乐翻倍！", "生活简单却闪闪发光！", 
+            "被世界温柔对待！","三餐四季，温柔有趣！", "奔赴星辰大海！", "心想事成！", "心有暖阳，自带光芒！", "健康快乐！","岁岁无忧，日日有甜！","风遇山止，船到岸安！", "岁岁年年，万喜万般宜！",  "永远做那个最快乐的自己！", "有趣、有盼，不负期待！", "愿你的世界里，永远有惊喜！", "所有热爱，皆不落空！", "长乐未央！", "星辰入梦！", "所有的好运不期而遇！"
+        ];
+        
+        let currentIndex = 0;
+        myAudio.load();
+
+        blowBtn.addEventListener('click', function() {
+            flame.style.visibility = 'hidden';
+            const playPromise = myAudio.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {});
+            }
+            
+            blowBtn.disabled = true;
+            blowBtn.textContent = "愿望成真中 ✨";
+            blowBtn.style.background = "#4CAF50";
+
+            startMessageLoop();
+            startFloatingLoop();
+        });
+        
+        function startMessageLoop() {
+            setInterval(() => {
+                message.style.opacity = 0;
+                setTimeout(() => {
+                    message.innerHTML = blessings[currentIndex];
+                    message.style.opacity = 1;
+                    currentIndex = (currentIndex + 1) % blessings.length;
+                }, 400);
+            }, 3000);
+        }
+
+        function startFloatingLoop() {
+            setInterval(() => {
+                const b = document.createElement('div');
+                b.className = 'blessings';
+                b.textContent = blessings[Math.floor(Math.random() * blessings.length)];
+                const randomX = Math.max(10, Math.min(80, Math.random() * 90));
+                b.style.left = `${randomX}%`;
+                b.style.bottom = `15%`;
+                document.body.appendChild(b);
+                b.style.animation = `floatUp 4.5s linear forwards`;
+                setTimeout(() => b.remove(), 4500);
+            }, 900);
+        }
+    </script>
+</body>
+</html>
